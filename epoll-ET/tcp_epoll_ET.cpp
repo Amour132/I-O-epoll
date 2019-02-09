@@ -1,4 +1,4 @@
-#pragma once 
+
 
 #include "Socket.hpp"
 #include <functional>
@@ -93,7 +93,7 @@ class EpollServer
         for(size_t i = 0; i<output.size(); i++)
         {
           int ret = output[i].GetSock();
-          if(ret == listen_sock)
+          if(ret == listen_sock.GetSock())
           {
             Socket newsock;
             listen_sock.Accept(&newsock);

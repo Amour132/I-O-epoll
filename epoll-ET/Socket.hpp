@@ -158,11 +158,11 @@ class Socket
     
     bool RecvBlock(std::string* buff)//未考虑粘包问题
     {
-      buf->clear();
+      buff->clear();
       char tmp[1024] = {0};
       for(;;)
       {
-        ssize_t read_size = recv(_sock,mp,sizeof(tmp)-1,0);
+        ssize_t read_size = recv(_sock,tmp,sizeof(tmp)-1,0);
         if(read_size < 0)
         {
           if(errno == EWOULDBLOCK || errno == EAGAIN)
@@ -177,7 +177,7 @@ class Socket
           return false;
         }
         tmp[read_size] = '\0';
-        *buf += tmp;
+        *buff += tmp;
         if(read_size < (ssize_t)sizeof(tmp)-1)
           break;
       }
